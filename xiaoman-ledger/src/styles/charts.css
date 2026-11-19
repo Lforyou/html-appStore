@@ -1,0 +1,214 @@
+/* 小满记账 · 手账视觉体系：由单文件 app.css 按主题拆分，数值全部对齐原型 S0 设计规范板 */
+
+/* =============== 图表 =============== */
+
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.donut-box {
+  position: relative;
+  flex-shrink: 0;
+}
+.donut-c {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.donut-c .v {
+  font-size: 15px;
+  font-weight: 600;
+}
+.legend {
+  flex: 1;
+  min-width: 0;
+}
+.lg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+}
+.lg i {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.lg .n {
+  flex: 1;
+  font-size: 12px;
+  color: var(--ink-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lg .p {
+  font-size: 11px;
+  font-weight: 600;
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 96px;
+  padding: 0 4px;
+}
+.bcol {
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.bcol i {
+  width: 20px;
+  border-radius: 10px 10px 4px 4px;
+  background: var(--b100);
+}
+.bcol i.void {
+  background: transparent;
+  border-top: 2px dashed var(--line-dash);
+  border-radius: 0;
+  height: 4px;
+}
+.bcol.now i {
+  background: linear-gradient(180deg, var(--b300), var(--b500));
+}
+.bcol em {
+  font-style: normal;
+  font-size: 9px;
+  color: var(--ink-500);
+  font-family: ui-rounded, sans-serif;
+}
+.bars.y12 {
+  height: 88px;
+}
+.bars.y12 .bcol {
+  width: 18px;
+}
+.bars.y12 .bcol i {
+  width: 18px;
+  border-radius: 9px 9px 3px 3px;
+}
+.blab {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  margin-top: 6px;
+}
+.blab span {
+  width: 20px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--ink-500);
+}
+.blab.y12 span {
+  width: 18px;
+  font-size: 9px;
+}
+.insight {
+  background: var(--b50);
+  border-radius: var(--r-card-sm);
+  padding: 10px 12px;
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.insight p {
+  font-size: 12px;
+  color: #8a5236;
+  line-height: 17px;
+  margin: 0;
+}
+/* =============== 打卡日历 =============== */
+
+.stamp-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+.stamp-head span {
+  text-align: center;
+  font-size: 10px;
+  color: var(--ink-500);
+}
+.stamp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px 0;
+}
+.stamp-slot {
+  display: flex;
+  justify-content: center;
+}
+.stamp {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: var(--paper-200);
+  color: var(--ink-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.stamp.done {
+  background: var(--b100);
+  color: var(--b600);
+}
+.stamp.today {
+  background: var(--b600);
+  color: #fff;
+}
+.stamp.blank,
+.stamp.future {
+  visibility: hidden;
+}
+.stamp:not(.blank):active {
+  transform: scale(0.92);
+}
+.legend-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+}
+.legend-row p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--paper-200);
+}
+.dot.done {
+  background: var(--b100);
+}
+.dot.today {
+  background: var(--b600);
+}

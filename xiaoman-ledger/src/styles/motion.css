@@ -1,0 +1,113 @@
+/* 小满记账 · 手账视觉体系：由单文件 app.css 按主题拆分，数值全部对齐原型 S0 设计规范板 */
+
+/* =============== 页面转场（数值对齐原型手势约定） =============== */
+
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-100);
+  /* 绝对定位的包含块是 padding box，安全区只能自己吃掉 */
+  padding-top: var(--safe-top);
+}
+
+.fwd-enter-active,
+.fwd-leave-active,
+.back-enter-active,
+.back-leave-active,
+.swap-enter-active,
+.swap-leave-active {
+  transition-duration: 0.26s;
+  transition-timing-function: var(--ease-ios);
+  transition-property: transform, opacity;
+}
+.swap-enter-active,
+.swap-leave-active {
+  transition-duration: 0.2s;
+}
+
+.fwd-enter-from {
+  opacity: 0;
+  transform: translateX(26px);
+}
+.fwd-leave-to {
+  opacity: 0;
+  transform: translateX(-26px);
+}
+.back-enter-from {
+  opacity: 0;
+  transform: translateX(-26px);
+}
+.back-leave-to {
+  opacity: 0;
+  transform: translateX(26px);
+}
+.swap-enter-from,
+.swap-leave-to {
+  opacity: 0;
+}
+.swap-enter-from {
+  transform: translateY(14px);
+}
+.swap-leave-to {
+  transform: translateY(-8px);
+}
+
+.sheet-enter-active,
+.sheet-leave-active {
+  transition: transform 0.28s var(--ease-ios);
+}
+.sheet-enter-from,
+.sheet-leave-to {
+  transform: translateY(100%);
+}
+.veil-enter-active,
+.veil-leave-active {
+  transition: opacity 0.24s ease;
+}
+.veil-enter-from,
+.veil-leave-to {
+  opacity: 0;
+}
+
+/* 弹层容器：sheet / toast 通过 Teleport 挂到这里，才能盖住 tabbar 并对齐 390 宽屏幕 */
+.overlays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.overlays > * {
+  pointer-events: auto;
+}
+
+/* tab 同级切换只做透明度：横向推入会让人误以为进入了下一层 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fwd-enter-active,
+  .fwd-leave-active,
+  .back-enter-active,
+  .back-leave-active,
+  .swap-enter-active,
+  .swap-leave-active,
+  .fade-enter-active,
+  .fade-leave-active,
+  .sheet-enter-active,
+  .sheet-leave-active {
+    transition-duration: 0.01ms;
+  }
+  .row.flash,
+  .skeleton,
+  .caret {
+    animation: none;
+  }
+}

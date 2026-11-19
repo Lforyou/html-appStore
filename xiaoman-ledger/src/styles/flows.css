@@ -1,0 +1,272 @@
+/* 小满记账 · 手账视觉体系：由单文件 app.css 按主题拆分，数值全部对齐原型 S0 设计规范板 */
+
+/* =============== 流水 =============== */
+
+.day-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--line-dash);
+  margin-bottom: 4px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 64px;
+  cursor: pointer;
+}
+.row.compact {
+  height: 56px;
+}
+.list .row:not(:last-child) {
+  border-bottom: 1px dashed var(--line-dash);
+}
+.row .meta {
+  flex: 1;
+  min-width: 0;
+}
+.row .name {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row .note {
+  font-size: 11px;
+  color: var(--ink-500);
+  line-height: 16px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row .amt {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+.amt.in {
+  color: var(--income);
+}
+.amt.tr {
+  color: var(--ink-700);
+}
+@keyframes flash {
+  0% {
+    background: var(--b100);
+  }
+  100% {
+    background: transparent;
+  }
+}
+.row.flash {
+  animation: flash 1.4s ease-out;
+  border-radius: 12px;
+}
+/* =============== 排行 / 预算行 =============== */
+
+.rank {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  cursor: pointer;
+}
+.rank .rk {
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+.rank .rv {
+  font-size: 15px;
+  font-weight: 600;
+}
+.rank-tile {
+  background: var(--b100);
+  color: var(--b600);
+}
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.empty-line {
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-500);
+  padding: 8px 0;
+}
+.sticker {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--honey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a6a2a;
+  flex-shrink: 0;
+}
+.bud-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line-dash);
+  cursor: pointer;
+}
+.bud-row:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+.bud-row .bn {
+  font-size: 14px;
+  font-weight: 500;
+}
+.bud-row .bv {
+  font-size: 11px;
+  color: var(--ink-500);
+  margin-top: 5px;
+}
+.alert {
+  margin: 0 20px 12px;
+  background: rgba(226, 74, 63, 0.09);
+  border-radius: var(--r-card-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.alert .t {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--danger);
+}
+.alert .d {
+  font-size: 11px;
+  color: #b5726a;
+  margin-top: 2px;
+  line-height: 16px;
+}
+.tri {
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.tri.up {
+  background: rgba(226, 74, 63, 0.1);
+  color: var(--danger);
+}
+.tri.down {
+  background: rgba(127, 194, 155, 0.16);
+  color: var(--income);
+}
+.tri.plain {
+  background: var(--paper-200);
+  color: var(--ink-700);
+}
+/* =============== 转账 =============== */
+
+.acct-card {
+  margin: 0 20px 12px;
+  background: var(--card);
+  border-radius: var(--r-card);
+  padding: 14px 16px;
+  box-shadow: var(--el1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.acct {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.acct .an {
+  font-size: 13px;
+  font-weight: 600;
+}
+.acct .ab {
+  font-size: 11px;
+  color: var(--ink-500);
+  margin-top: 2px;
+}
+.acct .tail {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-500);
+}
+.acct .abalance {
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.acct .abalance.minus {
+  color: var(--danger);
+}
+.chips.inside {
+  padding: 0;
+  margin-bottom: 14px;
+}
+.swap-ic {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: var(--b50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  color: var(--b600);
+}
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.field-row .field {
+  flex: 1;
+}
+.big-input {
+  font-size: 20px;
+  font-weight: 600;
+  height: 48px;
+}
+.budget-tip.inline-tip {
+  margin: 0 0 4px;
+}
+.streak-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.budget-tip {
+  margin: 0 20px 12px;
+  font-size: 11px;
+  color: var(--ink-500);
+  line-height: 16px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}

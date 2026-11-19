@@ -1,0 +1,15 @@
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import { appRouter } from './router'
+import './styles/tokens.css'
+import './styles/base.css'
+import './styles/layout.css'
+import './styles/motion.css'
+import './styles/surfaces.css'
+import './styles/controls.css'
+import './styles/flows.css'
+import './styles/entry.css'
+import './styles/charts.css'
+
+createApp(App).use(createPinia()).use(appRouter).mount('#app')

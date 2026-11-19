@@ -1,0 +1,96 @@
+/* 小满记账 · 设计令牌，数值全部取自原型 S0 设计规范板 */
+
+:root {
+  /* 纸感中性色 */
+  --paper-50: #fffcf7;
+  --paper-100: #fff6ec;
+  --paper-200: #fbefe2;
+  --card: #ffffff;
+  --line-soft: #f2e6da;
+  --line-dash: #e7d8c6;
+  --ink-900: #3a2e27;
+  --ink-700: #6b5b50;
+  --ink-500: #a2907f;
+  --ink-300: #cbbcac;
+
+  /* 品牌与语义色 */
+  --b50: #fff3ec;
+  --b100: #ffe6d8;
+  --b300: #ffbe9e;
+  --b500: #ff8a5c;
+  --b600: #f2703e;
+  --honey: #ffc65c;
+  --matcha: #7fc29b;
+  --sky: #8fb8de;
+  --danger: #e24a3f;
+  --income: #4e9e75;
+
+  /* 阴影：一律带棕橙底 */
+  --el1: 0 2px 8px rgba(214, 160, 120, 0.1), 0 8px 24px rgba(214, 160, 120, 0.08);
+  --el2: 0 6px 16px rgba(255, 138, 92, 0.3), 0 12px 28px rgba(214, 160, 120, 0.12);
+  --el3: 0 -4px 24px rgba(120, 90, 60, 0.12);
+
+  /* 分类马卡龙 · 支出 */
+  --cat-food: #ff9a6c;
+  --cat-food-tile: #ffeee3;
+  --cat-milk: #efa93c;
+  --cat-milk-tile: #fff4e0;
+  --cat-transport: #5ba9d6;
+  --cat-transport-tile: #e5f3fc;
+  --cat-shopping: #e86a90;
+  --cat-shopping-tile: #fde9ef;
+  --cat-daily: #7cb065;
+  --cat-daily-tile: #ebf6e5;
+  --cat-housing: #9579d6;
+  --cat-housing-tile: #f0eafc;
+  --cat-entertain: #e065b0;
+  --cat-entertain-tile: #fce9f7;
+  --cat-medical: #4fb3a2;
+  --cat-medical-tile: #e4f7f3;
+  --cat-study: #6a85d6;
+  --cat-study-tile: #e8eefd;
+  --cat-social: #ce9040;
+  --cat-social-tile: #fbedd9;
+  --cat-other: #a2907f;
+  --cat-other-tile: #f1ebe3;
+
+  /* 收入 */
+  --inc-salary: #4e9e75;
+  --inc-bonus: #dfa13a;
+  --inc-side: #5b87be;
+  --inc-invest: #7cb065;
+  --inc-gift: #e86a90;
+  --inc-reimburse: #9579d6;
+  --inc-fund: #5ba9d6;
+  --inc-rent: #ce9040;
+  --inc-return: #4fb3a2;
+  --inc-family: #e065b0;
+  --inc-lottery: #ff9a6c;
+  --inc-other: #a2907f;
+
+  /* 环形图 8 色序列 */
+  --ring-1: #ff9a6c;
+  --ring-2: #7ec4e8;
+  --ring-3: #f58ba8;
+  --ring-4: #ffc15e;
+  --ring-5: #9bc98a;
+  --ring-6: #b79ced;
+  --ring-7: #ee85c7;
+  --ring-8: #c3b4a6;
+
+  /* 几何 */
+  --r-card: 24px;
+  --r-card-sm: 16px;
+  --r-tile: 18px;
+  --r-pill: 999px;
+
+  /* iPhone 390×844 外壳 */
+  --screen-w: 390px;
+  --screen-h: 844px;
+  --safe-top: env(safe-area-inset-top, 44px);
+  --safe-bottom: env(safe-area-inset-bottom, 34px);
+  --statusbar-h: 52px;
+  --tabbar-h: 84px;
+
+  --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+}

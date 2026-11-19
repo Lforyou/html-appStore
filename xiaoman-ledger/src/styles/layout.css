@@ -1,0 +1,234 @@
+/* 小满记账 · 手账视觉体系：由单文件 app.css 按主题拆分，数值全部对齐原型 S0 设计规范板 */
+
+/* =============== 外壳 =============== */
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: var(--screen-w);
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--paper-100);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-100);
+}
+
+.screen-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
+
+.sim-statusbar {
+  height: var(--statusbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 26px 0 34px;
+  flex-shrink: 0;
+}
+
+.sim-statusbar .sb-time {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.home-indicator {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-indicator i {
+  width: 134px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(58, 46, 39, 0.8);
+}
+/* =============== 导航 =============== */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px 12px;
+  flex-shrink: 0;
+}
+.navbar.col {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding-bottom: 14px;
+}
+.navside {
+  width: 32px;
+  flex-shrink: 0;
+}
+.navtitle {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+.navtitle .h2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.navtitle .cap {
+  margin-top: 2px;
+}
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 6px 20px 12px;
+  flex-shrink: 0;
+}
+.topbar .cap {
+  margin-top: 2px;
+}
+.topbar .t-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.iconbtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--el1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  color: var(--ink-900);
+  cursor: pointer;
+}
+.iconbtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.month-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 20px 12px;
+}
+.month-switch .h2 {
+  min-width: 112px;
+  text-align: center;
+}
+.pill {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: var(--el1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-900);
+  border: none;
+  cursor: pointer;
+}
+.avatar.big {
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  font-size: 19px;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffc15e, #ff8a5c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+/* =============== Tab Bar =============== */
+
+.tabbar {
+  margin-top: auto;
+  background: rgba(255, 252, 247, 0.94);
+  border-top: 1px solid var(--line-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  flex-shrink: 0;
+  padding-bottom: var(--safe-bottom);
+}
+.tab-row {
+  height: 50px;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 6px;
+}
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding-top: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-500);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.tab.on {
+  color: var(--b600);
+}
+.fabslot {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  margin-top: -14px;
+  background: radial-gradient(circle at 32% 26%, var(--b300), var(--b600));
+  box-shadow: var(--el2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.fab:active {
+  transform: scale(0.94);
+}

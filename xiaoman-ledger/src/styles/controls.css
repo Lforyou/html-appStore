@@ -1,0 +1,227 @@
+/* 小满记账 · 手账视觉体系：由单文件 app.css 按主题拆分，数值全部对齐原型 S0 设计规范板 */
+
+/* =============== 列表 =============== */
+
+.list {
+  background: var(--card);
+  border-radius: var(--r-card);
+  margin: 0 20px 12px;
+  box-shadow: var(--el1);
+  padding: 4px 16px;
+}
+/* 弹层里的列表贴着 sheet 的白底，不需要自己的卡片与外边距 */
+.list.flat {
+  background: transparent;
+  border-radius: 0;
+  margin: 0 0 4px;
+  box-shadow: none;
+  padding: 0;
+}
+.li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  border-bottom: 1px dashed var(--line-dash);
+}
+.list .li:last-child {
+  border-bottom: none;
+}
+.li.column {
+  flex-direction: column;
+  align-items: stretch;
+  height: auto;
+  gap: 8px;
+  padding: 12px 0;
+}
+.lv.danger {
+  color: var(--danger);
+}
+.field.time {
+  width: 120px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.field.pin {
+  width: 160px;
+  align-self: flex-end;
+  text-align: center;
+  letter-spacing: 6px;
+}
+.err {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--danger);
+  margin: 0 20px 10px;
+}
+.sheet-copy {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--ink-700);
+}
+.li .lt {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.li .lv {
+  font-size: 13px;
+  color: var(--ink-500);
+}
+.switch {
+  width: 42px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--paper-200);
+  position: relative;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.switch i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: #fff;
+  transition: transform 0.2s var(--ease-ios);
+  box-shadow: 0 1px 3px rgba(120, 90, 60, 0.25);
+}
+.switch.on {
+  background: var(--matcha);
+}
+.switch.on i {
+  transform: translateX(16px);
+}
+/* =============== 按钮 =============== */
+
+.btn {
+  height: 48px;
+  border-radius: var(--r-tile);
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--ink-900);
+  box-shadow: var(--el1);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.primary {
+  background: var(--b600);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(242, 112, 62, 0.3);
+}
+.btn.tint {
+  background: var(--b50);
+  color: var(--b600);
+  box-shadow: none;
+}
+.btn.danger {
+  background: rgba(226, 74, 63, 0.09);
+  color: var(--danger);
+  box-shadow: none;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.btn-row.inset {
+  margin: 0 20px 16px;
+}
+/* =============== 浮层 / Toast =============== */
+
+.veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(58, 46, 39, 0.42);
+  z-index: 20;
+}
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card);
+  border-radius: 28px 28px 0 0;
+  box-shadow: var(--el3);
+  padding: 10px 20px calc(20px + var(--safe-bottom));
+  z-index: 21;
+  max-height: 78%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.grab {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-dash);
+  margin: 0 auto 14px;
+}
+.sheet-title {
+  margin-bottom: 12px;
+}
+.toast {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  bottom: calc(var(--tabbar-h) + 8px);
+  background: rgba(58, 46, 39, 0.94);
+  border-radius: 20px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 12px 28px rgba(58, 46, 39, 0.28);
+  z-index: 30;
+}
+.toast .tt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--paper-100);
+}
+.toast .td {
+  font-size: 11px;
+  color: var(--ink-300);
+  margin-top: 2px;
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.toast-enter-active {
+  animation: toastIn 0.24s var(--ease-ios);
+}
+.toast-leave-active {
+  animation: toastIn 0.2s var(--ease-ios) reverse;
+}

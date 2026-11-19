@@ -1,0 +1,1006 @@
+var \_\_mr='all',\_\_md='j3km3796.qwenwork.host';document.addEventListener('DOMContentLoaded', function () { var BAR\_HEIGHT = 48; // --- detect page theme --- var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; // fallback: sample body/html background color if (!isDark) { try { var sample = getComputedStyle(document.body).backgroundColor; if (sample === 'rgba(0, 0, 0, 0)' || sample === 'transparent') { sample = getComputedStyle(document.documentElement).backgroundColor; } if (sample && sample !== 'rgba(0, 0, 0, 0)' && sample !== 'transparent') { var m = sample.match(/\\d+/g); if (m) { var brightness = (parseInt(m\[0\]) \* 299 + parseInt(m\[1\]) \* 587 + parseInt(m\[2\]) \* 114) / 1000; isDark = brightness < 128; } } } catch (e) {} } // --- shared CSS (always injected into <head>) --- var SHARED\_CSS = '<style>' + '@keyframes mulepage-svg-glow-dark{0%,100%{color:#ffffff}50%{color:#3b82f6}}' + '@keyframes mulepage-svg-glow-light{0%,100%{color:#000000}50%{color:#3b82f6}}' + '.mulepage-anim-dark{animation:mulepage-svg-glow-dark 2.5s ease-in-out infinite}' + '.mulepage-anim-light{animation:mulepage-svg-glow-light 2.5s ease-in-out infinite}' + '.mulepage-close-dark{color:rgba(255,255,255,0.3);transition:color 0.2s ease}' + '.mulepage-close-dark:hover{color:#ffffff}' + '.mulepage-close-light{color:rgba(0,0,0,0.3);transition:color 0.2s ease}' + '.mulepage-close-light:hover{color:#000000}' + '#mulepage-footer-link{display:inline-flex;align-items:center;line-height:0;outline:none}' + '.mulepage-footer-brand{display:inline-flex;align-items:center;box-sizing:border-box;height:32px;max-width:104px;overflow:hidden;padding:6px 12px;border-radius:999px;background:' + (isDark ? 'rgba(26,26,26,0.85)' : 'rgba(255,255,255,0.85)') + ';backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 0.5px ' + (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)') + ',0 8px 24px -4px ' + (isDark ? 'rgba(0,0,0,0.28)' : 'rgba(0,0,0,0.07)') + ';transition:max-width 260ms cubic-bezier(0.22,1,0.36,1);will-change:max-width;white-space:nowrap}' + '.mulepage-footer-brand-hint{display:inline-block;width:134px;max-width:0;margin-left:0;overflow:hidden;opacity:0;color:' + (isDark ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.64)') + ';font-size:14px;font-weight:400;line-height:20px;transition:max-width 260ms cubic-bezier(0.22,1,0.36,1),margin-left 260ms cubic-bezier(0.22,1,0.36,1),opacity 180ms ease-out;will-change:max-width,opacity}' + '#mulepage-footer:hover .mulepage-footer-brand,#mulepage-footer:focus-within .mulepage-footer-brand{max-width:246px}' + '#mulepage-footer:hover .mulepage-footer-brand-hint,#mulepage-footer:focus-within .mulepage-footer-brand-hint{max-width:134px;margin-left:8px;opacity:1}' + '.mulepage-float-close{display:inline-flex;align-items:center;justify-content:center;max-width:0;margin-left:0;overflow:hidden;opacity:0;transition:max-width 0.2s ease,margin-left 0.2s ease,opacity 0.15s ease;padding:0;border:none;background:none;cursor:pointer;font-size:16px;line-height:1;font-weight:300;height:16px;will-change:max-width,opacity}' + '.mulepage-float:hover .mulepage-float-close{max-width:14px;margin-left:4px;opacity:1}' + '</style>'; // always inject shared CSS into <head> so it survives banner removal document.head.insertAdjacentHTML('beforeend', SHARED\_CSS); // --- SVG icon (shared, rx=0 for sharp corners) --- var ICON16 = '<svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">' + '<rect width="36" height="36" rx="0" fill="#FBF9F6"/><g clip-path="url(#c\_top)">' + '<path d="M6.387 21.732v8.895H18.762V28.5h2.32v1.16h8.121V28.5h1.16v-7.928h-1.16v-1.16h-4.64v-1.16h-1.16v-1.16h-1.16v-1.16h-1.16v-1.16h-1.16v-1.16h3.287v-1.934h3.48V9.357H16.442v3.48h-2.128V6.07h-2.32v2.127H9.674v3.48H7.547v10.055H6.387Z" fill="#000"/>' + '<path d="M13.154 21.732v-4.447h1.16v-1.16h4.448v4.447h-1.16v1.16h-4.448Z" fill="#fff"/>' + '<rect x="15.281" y="18.252" width="2.32" height="2.32" fill="#000"/>' + '<path d="M21.082 27.34v-5.608h1.16v-1.16h5.801v1.16h1.16v5.608h-1.16V28.5h-5.801v-1.16h-1.16Z" fill="#fff"/>' + '<path d="M26.883 21.732h-2.32v1.16h1.16v1.16h1.16v-2.32Z" fill="#000"/>' + '<path d="M22.242 24.053v2.32h1.16v1.16h3.48v-1.16h-2.32v-1.16h-1.16v-1.16h-1.16Z" fill="#000"/>' + '</g><defs><clipPath id="c\_top"><rect width="24.75" height="24.75" fill="#fff" transform="translate(6 6)"/></clipPath></defs></svg>'; var ICON16\_FOOT = ICON16.replace(/c\_top/g, 'c\_foot'); // --- 品牌标志：按主题直接设置 SVG 填色，强制颜色模式由浏览器适配。 --- var brandIconPath = 'M9.57761 1.20772L8.19405 2.01959C7.93541 2.17156 7.7751 2.45222 7.7751 2.75616V4.26489C7.7751 4.56882 7.93541 4.85087 8.19405 5.00283L11.1849 6.75663C11.4435 6.9086 11.6038 7.19063 11.6038 7.49457V9.04441C11.6038 9.3483 11.7628 9.62902 12.0228 9.7809L13.0076 10.36C13.2662 10.512 13.587 10.512 13.8456 10.36L17.2809 8.34343C17.5409 8.19143 17.7013 7.91083 17.7013 7.60552V5.97352C17.7013 5.66821 17.5409 5.38755 17.2809 5.23558L10.4156 1.20772C10.157 1.05576 9.83767 1.05576 9.57761 1.20772ZM17.7188 14.0265V12.4028C17.7188 12.0988 17.5584 11.8182 17.2998 11.6662L16.0146 10.9118C15.7545 10.7599 15.4353 10.7599 15.1766 10.9118L12.1858 12.6656C11.9272 12.8176 11.6079 12.8176 11.3478 12.6656L10.0277 11.8907C9.76891 11.7387 9.44829 11.7387 9.18965 11.8907L8.20486 12.4685C7.94479 12.6218 7.78591 12.9025 7.78591 13.2064V17.2384C7.78591 17.5423 7.94479 17.8243 8.20486 17.9763L9.59649 18.7922C9.85513 18.9442 10.1744 18.9442 10.4345 18.7922L17.2998 14.7644C17.5584 14.6125 17.7188 14.3318 17.7188 14.0265ZM2.70022 14.7781L4.08379 15.59C4.34381 15.7419 4.66309 15.7419 4.92175 15.59L6.20697 14.8356C6.46699 14.6836 6.6273 14.4016 6.6273 14.0977L6.62596 10.5888C6.62596 10.2848 6.78627 10.0042 7.04627 9.85215L8.36648 9.07719C8.62523 8.92531 8.78554 8.64328 8.78554 8.33928V7.18378C8.78554 6.87847 8.62523 6.59781 8.36648 6.44584L4.92984 4.42919C4.67118 4.27721 4.35189 4.27721 4.09188 4.42919L2.70022 5.24653C2.44156 5.39849 2.28125 5.67916 2.28125 5.9831V14.0402C2.28125 14.3441 2.44156 14.6261 2.70022 14.7781Z'; var brandWordmarkPath = 'M50.3395 4.44372C50.3725 4.44405 50.4053 4.45293 50.4338 4.46969C50.4623 4.48649 50.4858 4.51069 50.5022 4.53942C50.5185 4.56819 50.5275 4.60065 50.5275 4.63376C50.5274 4.66699 50.5181 4.70001 50.5015 4.72878L46.2598 12.0927H52.5427L50.2465 8.10517C50.2298 8.07662 50.2214 8.04393 50.2212 8.01083C50.2211 7.97767 50.2293 7.94454 50.2458 7.91581C50.2623 7.88716 50.2863 7.86325 50.3149 7.84676C50.3435 7.83027 50.3762 7.82199 50.4092 7.82215H52.1633C52.23 7.82218 52.2956 7.83944 52.3534 7.87274C52.4112 7.90609 52.4593 7.95439 52.4928 8.0122L54.7234 11.9047C54.7971 12.0301 54.8355 12.1735 54.8341 12.319V13.7286C54.8341 13.8006 54.8056 13.8698 54.7548 13.9207C54.704 13.9716 54.6346 14 54.5628 14H44.5173C44.453 14.0004 44.3908 13.9778 44.3416 13.9364C44.2924 13.895 44.2593 13.8373 44.2486 13.7737L43.9711 12.1898C43.96 12.1269 43.971 12.0621 44.0025 12.0066L48.2559 4.63581C48.2893 4.57783 48.3369 4.5294 48.3947 4.49567C48.4525 4.46193 48.5185 4.4442 48.5854 4.44372H50.3395ZM34.0063 0.0145621C34.0783 0.0151591 34.1476 0.0446248 34.1984 0.0959126C34.249 0.147176 34.2777 0.216573 34.2777 0.288693V1.23892H37.9821C38.0538 1.23898 38.1228 1.26741 38.1735 1.31822C38.2243 1.3691 38.2527 1.43836 38.2528 1.51032V13.706C38.2528 13.778 38.2243 13.8472 38.1735 13.8981C38.1227 13.949 38.0538 13.9774 37.9821 13.9774H35.0966C35.0299 13.9776 34.9644 13.9602 34.9066 13.9268C34.8487 13.8935 34.8005 13.8454 34.7671 13.7874L33.9543 12.3778C33.9376 12.3492 33.9292 12.3165 33.929 12.2834C33.9289 12.2503 33.9371 12.2171 33.9536 12.1884C33.9701 12.1598 33.9941 12.1359 34.0227 12.1194C34.0513 12.1029 34.084 12.0946 34.117 12.0948H36.2615V3.12434H34.2729V4.77595C34.2772 7.99467 33.3348 11.1436 31.5638 13.8284C31.5285 13.8804 31.4811 13.9233 31.4257 13.9528C31.3704 13.9823 31.3086 13.9977 31.2459 13.9979H29.3359C29.3008 13.9982 29.2661 13.9884 29.2361 13.9699C29.2063 13.9514 29.182 13.9249 29.1664 13.8934C29.1509 13.8617 29.1444 13.8259 29.1479 13.7908C29.1515 13.7557 29.1653 13.7222 29.1869 13.6944C31.1857 11.1541 32.27 8.01137 32.2638 4.77595V3.12434H30.2479C30.1812 3.12431 30.1156 3.10639 30.0578 3.07306C30 3.03971 29.9519 2.99142 29.9184 2.93361L29.1076 1.52399C29.0909 1.49542 29.0825 1.46275 29.0823 1.42965C29.0822 1.39656 29.0905 1.36399 29.1069 1.33531C29.1234 1.3066 29.1473 1.28279 29.176 1.26626C29.2047 1.24974 29.2372 1.24081 29.2703 1.24097H32.2638V0.288693C32.2638 0.25216 32.2708 0.215717 32.285 0.182048C32.2991 0.148458 32.3198 0.117974 32.3458 0.0924945C32.3718 0.0670545 32.4029 0.0470581 32.4367 0.0337034C32.4706 0.0203804 32.507 0.0136933 32.5434 0.0145621H34.0063ZM15.9217 3.67191C15.9937 3.67251 16.063 3.70131 16.1138 3.75258C16.1645 3.80382 16.193 3.8732 16.1931 3.94536V13.7149C16.1931 13.7505 16.1861 13.786 16.1726 13.8188C16.159 13.8517 16.1389 13.8818 16.1138 13.907C16.0886 13.9322 16.0585 13.9522 16.0256 13.9658C15.9927 13.9795 15.9573 13.9863 15.9217 13.9863H14.4725C14.4007 13.9863 14.3318 13.9579 14.2811 13.907C14.2303 13.8561 14.2018 13.7869 14.2018 13.7149V3.95698C14.2018 3.88477 14.2303 3.81548 14.2811 3.7642C14.3317 3.71296 14.4005 3.6835 14.4725 3.68285L15.9217 3.67191ZM25.7778 0.456179C25.8499 0.456176 25.9194 0.484614 25.9706 0.535478C26.0217 0.586332 26.0506 0.655395 26.0512 0.727575V13.704C26.0506 13.7761 26.0217 13.8453 25.9706 13.8961C25.9194 13.9469 25.8498 13.9754 25.7778 13.9754H22.893C22.8263 13.9754 22.7608 13.9575 22.703 13.9241C22.6452 13.8908 22.5971 13.8431 22.5635 13.7853L21.7507 12.375C21.734 12.3464 21.7248 12.3139 21.7248 12.2807C21.7247 12.2474 21.734 12.2145 21.7507 12.1857C21.7675 12.1569 21.7915 12.133 21.8205 12.1166C21.8494 12.1003 21.8822 12.0922 21.9155 12.0927H24.0599V2.33886H18.5679C18.5012 2.33883 18.4357 2.32094 18.3779 2.28759C18.3201 2.25426 18.272 2.20655 18.2384 2.14881L17.4256 0.739196C17.4095 0.710318 17.4014 0.67726 17.4017 0.644173C17.402 0.611267 17.4105 0.578965 17.427 0.550518C17.4436 0.522017 17.4675 0.497993 17.496 0.481472C17.5246 0.464946 17.5573 0.456302 17.5903 0.456179H25.7778ZM10.9424 0.0125113C11.0281 -0.0094232 11.1186 -0.00233281 11.2001 0.0323362C11.2817 0.0670961 11.3497 0.128021 11.3935 0.205291L12.0867 1.40914C12.1019 1.43883 12.1102 1.4715 12.1113 1.50485C12.1124 1.5383 12.1062 1.57191 12.0929 1.6026C12.0795 1.63337 12.0593 1.66124 12.0341 1.68327C12.0088 1.70526 11.9788 1.72141 11.9466 1.73044C10.4176 2.08949 8.87647 2.39115 7.32339 2.63555V5.94631L12.3554 5.95109C12.4272 5.95111 12.496 5.97948 12.5468 6.03039C12.5976 6.08132 12.6261 6.15047 12.6261 6.22249V7.58015C12.6261 7.65217 12.5976 7.72132 12.5468 7.77225C12.496 7.82311 12.4271 7.85153 12.3554 7.85155H7.3145V13.7019C7.31442 13.7737 7.28578 13.8425 7.2352 13.8934C7.18448 13.9442 7.11553 13.9733 7.0438 13.9733H5.57133C5.49958 13.9733 5.43066 13.9442 5.37992 13.8934C5.32932 13.8425 5.30071 13.7737 5.30062 13.7019V7.8495H0.271389C0.235862 7.8495 0.20031 7.8426 0.167482 7.82899C0.134627 7.81534 0.104447 7.7954 0.0792974 7.7702C0.0541601 7.745 0.0341211 7.71493 0.0205079 7.68201C0.00692189 7.64913 2.85566e-05 7.61369 0 7.5781V6.21975C8.05178e-05 6.14763 0.0286325 6.07819 0.0792974 6.02697C0.130028 5.97574 0.199375 5.9469 0.271389 5.94631H5.30062V2.909C4.09666 3.05835 2.89245 3.17412 1.68849 3.25559C1.61235 3.261 1.53643 3.24437 1.46905 3.20842C1.40157 3.17239 1.34508 3.11836 1.30704 3.05187L0.526371 1.69421C0.510444 1.66708 0.501697 1.63612 0.501077 1.60466C0.500509 1.57308 0.507964 1.54151 0.522953 1.51373C0.537928 1.48602 0.559909 1.46284 0.586527 1.44606C0.6132 1.42926 0.64393 1.41951 0.675395 1.41803C4.13048 1.2347 7.56472 0.764459 10.9424 0.0125113ZM22.5116 4.06363C22.5471 4.06363 22.5826 4.07049 22.6155 4.08413C22.6482 4.09778 22.6779 4.11779 22.703 4.14292C22.7281 4.16814 22.7482 4.19817 22.7618 4.23111C22.7753 4.26401 22.7823 4.29942 22.7823 4.33502V10.5669C22.7823 10.6025 22.7754 10.6385 22.7618 10.6715C22.7482 10.7043 22.728 10.7338 22.703 10.759C22.6779 10.7841 22.6482 10.8041 22.6155 10.8178C22.5826 10.8314 22.5471 10.8389 22.5116 10.839H17.6895C17.6177 10.8389 17.5488 10.8099 17.4981 10.759C17.4473 10.7081 17.4188 10.6388 17.4188 10.5669V4.33502C17.4188 4.26301 17.4473 4.19385 17.4981 4.14292C17.5488 4.09201 17.6177 4.06364 17.6895 4.06363H22.5116ZM31.5754 4.06363C31.6056 4.06373 31.6354 4.07084 31.6622 4.08482C31.6891 4.09882 31.7124 4.11883 31.7299 4.14361C31.7474 4.16843 31.7586 4.19761 31.7627 4.22769C31.7668 4.25759 31.7638 4.2881 31.7538 4.31656L29.4733 10.5874C29.4472 10.661 29.399 10.7249 29.3353 10.7699C29.2714 10.8149 29.1946 10.8393 29.1165 10.839H27.5367C27.5065 10.839 27.4767 10.8317 27.4499 10.8178C27.423 10.8037 27.3995 10.7832 27.3822 10.7583C27.3649 10.7334 27.3539 10.7043 27.3501 10.6742C27.3463 10.6442 27.3498 10.6137 27.3603 10.5853L29.636 4.31451C29.6629 4.24077 29.712 4.17693 29.7762 4.13199C29.8403 4.08714 29.9167 4.06351 29.9949 4.06363H31.5754ZM40.2776 3.1216C40.3669 3.12177 40.4532 3.15371 40.5217 3.21115C40.5901 3.26857 40.6363 3.34807 40.6522 3.43606L41.91 10.5874C41.9157 10.6182 41.9146 10.6501 41.9066 10.6804C41.8987 10.7106 41.8836 10.7384 41.8636 10.7624C41.8435 10.7864 41.8187 10.806 41.7904 10.8191C41.7622 10.8322 41.7313 10.8391 41.7002 10.839H40.2503C40.1611 10.8387 40.0746 10.8068 40.0062 10.7494C39.9378 10.6919 39.8915 10.6119 39.8757 10.5238L38.6185 3.37522C38.6148 3.34449 38.6173 3.31331 38.626 3.28362C38.6348 3.25387 38.6499 3.22604 38.6698 3.20227C38.6896 3.17862 38.714 3.15935 38.7416 3.14553C38.7692 3.13171 38.7996 3.12326 38.8304 3.1216H40.2776ZM19.3554 8.95627H20.8456V5.94631H19.3554V8.95627ZM51.8926 0.463015C51.9665 0.462456 52.039 0.48304 52.1011 0.523173C52.1633 0.563383 52.2127 0.621467 52.2426 0.689292C53.2031 2.93221 54.3588 5.08567 55.6968 7.12418L55.9669 7.53435C55.9862 7.56258 55.9977 7.59586 55.9997 7.63005C56.0016 7.66432 55.9945 7.69886 55.9785 7.72918C55.9624 7.75948 55.9381 7.78474 55.9088 7.80233C55.8794 7.81986 55.8458 7.82917 55.8117 7.82899H53.9673C53.9034 7.82925 53.8402 7.81269 53.7841 7.78182C53.7282 7.75101 53.6808 7.70673 53.6467 7.65261C52.2539 5.45415 51.06 3.13466 50.0797 0.722789C50.0683 0.693995 50.0641 0.662659 50.0674 0.631868C50.0708 0.601234 50.0816 0.571953 50.0989 0.546416C50.1162 0.520752 50.1399 0.499426 50.1672 0.484891C50.1944 0.470456 50.2246 0.463092 50.2554 0.463015H51.8926ZM48.4138 0.456179C48.4449 0.455674 48.4758 0.463016 48.5033 0.477371C48.5308 0.49171 48.5543 0.512555 48.5717 0.538213C48.5892 0.564028 48.6 0.593997 48.6031 0.625032C48.6063 0.656014 48.6014 0.687213 48.5895 0.715953C47.6712 2.97711 46.5654 5.15699 45.2836 7.23219L45.0252 7.64783C44.9906 7.70211 44.9428 7.74686 44.8864 7.77772C44.8301 7.80854 44.7668 7.82439 44.7025 7.8242H42.8582C42.8239 7.82445 42.7898 7.81581 42.7604 7.79822C42.731 7.78064 42.7074 7.75471 42.6914 7.72439C42.6754 7.69411 42.6676 7.66017 42.6695 7.62595C42.6715 7.59167 42.6829 7.55854 42.7023 7.53025C44.1557 5.3696 45.4035 3.07693 46.4293 0.682456C46.4589 0.61481 46.5077 0.557239 46.5694 0.517021C46.6312 0.476836 46.7036 0.455724 46.7773 0.456179H48.4138ZM15.7098 0.0125113C15.7765 0.0125388 15.842 0.0304272 15.8998 0.0637826C15.9576 0.0971219 16.0057 0.144814 16.0393 0.202557L17.3032 2.38671C17.32 2.41539 17.3291 2.44781 17.3292 2.48105C17.3293 2.51434 17.3206 2.54731 17.3039 2.57607C17.2871 2.60488 17.2625 2.62876 17.2335 2.64512C17.2046 2.6614 17.1717 2.66962 17.1385 2.66905H15.5088C15.4421 2.66901 15.3766 2.65178 15.3188 2.61846C15.2609 2.5851 15.2129 2.53681 15.1793 2.479L13.9222 0.295529C13.9061 0.26665 13.8972 0.233592 13.8976 0.200506C13.8979 0.167577 13.907 0.135301 13.9235 0.10685C13.9402 0.0782791 13.964 0.0543312 13.9926 0.0378051C14.0212 0.021279 14.0539 0.012635 14.0869 0.0125113H15.7098Z'; function brandSvg(width, height, path) { var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', width); svg.setAttribute('height', height); svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height); svg.setAttribute('fill', 'none'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false'); // 保留继承的交互和可见性状态，单独重置 SVG 绘制属性。 svg.style.all = 'unset'; svg.style.fill = 'none'; svg.style.fillOpacity = '1'; svg.style.fillRule = 'nonzero'; svg.style.stroke = 'none'; svg.style.marker = 'none'; svg.style.shapeRendering = 'auto'; svg.style.display = 'block'; svg.style.overflow = 'visible'; svg.style.width = width + 'px'; svg.style.height = height + 'px'; var shape = document.createElementNS('http://www.w3.org/2000/svg', 'path'); shape.setAttribute('d', path); shape.setAttribute('fill', isDark ? '#ebebeb' : '#141414'); // 在路径上完成绘制和裁剪，保留 SVG 根节点原有的布局与抗锯齿方式。 if (isDark) shape.style.filter = 'opacity(1)'; svg.appendChild(shape); return svg; } function mountBrand(container, footer) { try { container.setAttribute('aria-label', '打开千问办公'); var capsule = document.createElement('span'); capsule.style.display = 'inline-flex'; capsule.style.alignItems = 'center'; capsule.style.boxSizing = 'border-box'; capsule.style.height = '32px'; capsule.style.padding = '6px 12px'; capsule.style.borderRadius = '999px'; if (footer) { capsule.className = 'mulepage-footer-brand'; capsule.style.color = isDark ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.64)'; capsule.style.setProperty('background', isDark ? 'rgba(26,26,26,0.85)' : 'rgba(255,255,255,0.85)', 'important'); } else { capsule.style.justifyContent = 'center'; capsule.style.width = '104px'; container.style.background = isDark ? '#050505' : '#ffffff'; container.style.borderRadius = '999px'; capsule.style.setProperty('background', isDark ? 'rgba(255,255,255,0.12)' : '#f5f5f5', 'important'); } var host = document.createElement('span'); host.className = 'mulepage-brand-mark'; host.style.setProperty('all', 'unset', 'important'); host.style.setProperty('display', 'inline-flex', 'important'); host.style.setProperty('align-items', 'center', 'important'); host.style.setProperty('gap', '4px', 'important'); host.style.setProperty('line-height', '0', 'important'); host.style.setProperty('direction', 'ltr', 'important'); host.style.setProperty('writing-mode', 'horizontal-tb', 'important'); var shadow = host.attachShadow({ mode: 'open' }); // 未分配到 slot 的子节点不显示，同时让宿主保持非 :empty，与原图片包装一致。 host.appendChild(document.createElement('span')); shadow.appendChild(brandSvg(20, 20, brandIconPath)); shadow.appendChild(brandSvg(56, 14, brandWordmarkPath)); capsule.appendChild(host); if (footer) { var hint = document.createElement('span'); hint.className = 'mulepage-footer-brand-hint'; hint.textContent = 'AI 生成，请注意核实'; capsule.appendChild(hint); } container.appendChild(capsule); function syncViewport() { if (!host.isConnected) return; var ratio = window.devicePixelRatio || 1; shadow.querySelectorAll('svg').forEach(function (svg) { var rect = svg.getBoundingClientRect(); if (!rect.height) return; // 匹配图片视口的物理像素上边界，不移动笔画；缩放时重新计算。 var top = (Math.round(rect.top \* ratio) / ratio - rect.top) \* svg.height.baseVal.value / rect.height; svg.firstElementChild.style.clipPath = 'inset(' + top + 'px 0 0) view-box'; }); } function watchResolution() { if (!host.isConnected) return; syncViewport(); if (window.matchMedia) { var query = window.matchMedia('(resolution: ' + (window.devicePixelRatio || 1) + 'dppx)'); if (query.addEventListener) query.addEventListener('change', watchResolution, { once: true }); } } watchResolution(); window.addEventListener('resize', syncViewport); if (window.ResizeObserver) new ResizeObserver(syncViewport).observe(capsule); if (document.fonts) document.fonts.ready.then(syncViewport); } catch (error) { console.warn('Failed to mount QwenWork branding', error); } } // --- banner (adapts to page theme) --- var bannerBg = isDark ? '#050505' : '#ffffff'; var bannerBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'; var bannerColor = isDark ? '#fff' : '#000'; var bannerDividerColor = isDark ? 'rgba(255,255,255,0.24)' : 'rgba(0,0,0,0.16)'; var bannerCloseClass = isDark ? 'mulepage-close-dark' : 'mulepage-close-light'; var BANNER = '<div id="mulepage-bar" dir="ltr" style="position:fixed;top:0;left:0;width:100%;height:' + BAR\_HEIGHT + 'px;' + 'background:' + bannerBg + ';border-bottom:1px solid ' + bannerBorder + ';color:' + bannerColor + ';' + 'box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:8px;' + 'font-family:\\'PingFang SC\\',Inter,-apple-system,BlinkMacSystemFont,\\'Segoe UI\\',sans-serif;' + 'font-size:14px;font-weight:500;line-height:20px;z-index:2147483647;">' + '<span aria-hidden="true" style="flex:1 1 0;height:32px;"></span>' + '<div style="display:flex;align-items:center;gap:8px;white-space:nowrap;">' + '<span>由</span>' + '<span id="mulepage-bar-link" role="link" tabindex="0" aria-label="打开千问办公" style="display:inline-flex;align-items:center;cursor:pointer;line-height:0;">' + '</span>' + '<span>创建</span>' + '<span aria-hidden="true" style="width:1px;height:16px;margin:0 4px;background:' + bannerDividerColor + ';"></span>' + '<span id="mulepage-bar-cta" role="link" tabindex="0" aria-label="用千问办公创建网站" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;cursor:pointer;">' + '<span>一句话创建你的网站</span><span aria-hidden="true" style="font-size:16px;line-height:16px;">\\u2192</span></span>' + '</div>' + '<span style="flex:1 1 0;display:flex;justify-content:flex-end;align-items:center;">' + '<button id="mulepage-bar-close" class="' + bannerCloseClass + '" aria-label="关闭千问办公品牌栏" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;padding:8px;background:none;border:none;border-radius:999px;' + 'font-size:18px;cursor:pointer;line-height:16px;font-weight:300;">\\u00d7</button></span>' + '</div>'; // --- 右下角品牌入口 --- var floatCloseColor = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.3)'; var floatCloseHover = isDark ? '#ffffff' : '#000000'; var byColor = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)'; var FOOTER = '<div id="mulepage-footer" dir="ltr" class="mulepage-float" style="position:fixed !important;bottom:16px !important;right:16px !important;z-index:2147483646;' + 'display:inline-flex;align-items:center;padding:0;cursor:pointer;background:transparent;border:0;box-shadow:none;' + 'font-family:Inter,-apple-system,BlinkMacSystemFont,\\'Segoe UI\\',\\'Helvetica Neue\\',sans-serif;">' + '<span id="mulepage-footer-link" role="link" tabindex="0" aria-label="打开千问办公" style="display:inline-flex;align-items:center;line-height:0;">' + '</span>' + '</div>'; // --- insert banner (only when mode is "all") --- if (\_\_mr === 'all') { document.body.insertAdjacentHTML('afterbegin', BANNER); // 顶栏品牌标志和行动文案均跳转至千问办公。 var openQwenWork = function () { window.open('https://qwenwork.cn?utm\_source=pages&utm\_medium=banner&utm\_campaign=pages\_branding&utm\_content=top\_bar', '\_blank', 'noopener'); }; var topBrandLink = document.getElementById('mulepage-bar-link'); mountBrand(topBrandLink); var topBrandCta = document.getElementById('mulepage-bar-cta'); topBrandLink.addEventListener('click', openQwenWork); topBrandCta.addEventListener('click', openQwenWork); topBrandLink.addEventListener('keydown', function (event) { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openQwenWork(); } }); topBrandCta.addEventListener('keydown', function (event) { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openQwenWork(); } }); // Use the QwenWork favicon only as a fallback. Preserve favicons generated // by the page itself so published sites can keep their own branding. var existingIcon = document.querySelector('link\[rel="icon"\],link\[rel="shortcut icon"\]'); if (!existingIcon) { var fi = document.createElement('link'); fi.rel = 'icon'; fi.type = 'image/svg+xml'; fi.href = 'https://qwenwork.cn/app/favicon.svg'; document.head.appendChild(fi); } // push down normal-flow content (accumulate on existing padding-top) var origPT = parseFloat(getComputedStyle(document.body).paddingTop) || 0; document.body.style.paddingTop = (origPT + BAR\_HEIGHT) + 'px'; // push down all existing position:fixed elements var all = document.querySelectorAll('\*'); var shifted = \[\]; for (var i = 0; i < all.length; i++) { var el = all\[i\]; if (el.id && el.id.indexOf('mulepage') === 0) continue; var cs = getComputedStyle(el); if (cs.position === 'fixed') { var t = parseFloat(cs.top); if (isNaN(t)) t = 0; el.style.top = (t + BAR\_HEIGHT) + 'px'; shifted.push({ el: el, orig: t }); } } // close handler: restore everything document.getElementById('mulepage-bar-close').addEventListener('click', function () { document.getElementById('mulepage-bar').remove(); document.body.style.paddingTop = origPT + 'px'; for (var j = 0; j < shifted.length; j++) { shifted\[j\].el.style.top = shifted\[j\].orig + 'px'; } }); } // --- insert floating widget (only when \_\_mr is set) --- if (\_\_mr) { document.body.insertAdjacentHTML('beforeend', FOOTER); // 底部品牌标志点击后打开官网 var footerLink = document.getElementById('mulepage-footer-link'); if (footerLink) { mountBrand(footerLink, true); footerLink.addEventListener('click', function () { window.open('https://qwenwork.cn?utm\_source=pages&utm\_medium=banner&utm\_campaign=pages\_branding&utm\_content=bottom\_bar', '\_blank', 'noopener'); }); footerLink.addEventListener('keydown', function (event) { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); footerLink.click(); } }); } // paid users (footer-only mode): add close button on hover if (\_\_mr === 'footer') { var floatEl = document.getElementById('mulepage-footer'); if (floatEl) { var closeBtn = document.createElement('button'); closeBtn.className = 'mulepage-float-close'; closeBtn.style.color = floatCloseColor; closeBtn.textContent = '\\u00d7'; closeBtn.addEventListener('mouseenter', function () { closeBtn.style.color = floatCloseHover; }); closeBtn.addEventListener('mouseleave', function () { closeBtn.style.color = floatCloseColor; }); closeBtn.addEventListener('click', function (e) { e.stopPropagation(); floatEl.remove(); }); floatEl.appendChild(closeBtn); } } } // --- inject canonical link (all users) --- var canon = document.createElement('link'); canon.rel = 'canonical'; canon.href = 'https://' + location.hostname + '/'; document.head.appendChild(canon); // --- inject og meta tags (all users) --- var ogDomain = \_\_md; var ogTitle = document.title || ogDomain; var ogTags = \[ \['og:title', ogTitle\], \['og:url', 'https://' + location.hostname + '/'\], \['og:type', 'website'\], \['og:image', 'https://mule.page/og/' + ogDomain + '.webp'\] \]; for (var n = 0; n < ogTags.length; n++) { var existing = document.querySelector('meta\[property="' + ogTags\[n\]\[0\] + '"\]'); if (existing) existing.remove(); var meta = document.createElement('meta'); meta.setAttribute('property', ogTags\[n\]\[0\]); meta.setAttribute('content', ogTags\[n\]\[1\]); document.head.appendChild(meta); } });   小满记账 · iPhone 交互高保真原型（暖色治愈手账风） \*{margin:0;padding:0;box-sizing:border-box} :root{ --paper-50:#FFFCF7;--paper-100:#FFF6EC;--paper-200:#FBEFE2;--card:#FFFFFF; --line-soft:#F2E6DA;--line-dash:#E7D8C6; --ink-900:#3A2E27;--ink-700:#6B5B50;--ink-500:#A2907F;--ink-300:#CBBCAC; --b50:#FFF3EC;--b100:#FFE6D8;--b300:#FFBE9E;--b500:#FF8A5C;--b600:#F2703E; --honey:#FFC65C;--matcha:#7FC29B;--sky:#8FB8DE;--danger:#E24A3F; --el1:0 2px 8px rgba(214,160,120,.10),0 8px 24px rgba(214,160,120,.08); --el2:0 6px 16px rgba(255,138,92,.30),0 12px 28px rgba(214,160,120,.12); --el3:0 -4px 24px rgba(120,90,60,.12); --zoom:1; } body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","Noto Sans CJK SC",sans-serif;background:#EFE4D7;color:var(--ink-900);-webkit-font-smoothing:antialiased} /\* ================= 顶部工具条 ================= \*/ .topbar{position:sticky;top:0;z-index:50;background:#FBF4EA;border-bottom:1px solid var(--line-soft);padding:12px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap} .topbar h1{font-size:15px;font-weight:700;letter-spacing:-.2px;margin-right:4px} .topbar .ver{font-size:11px;color:var(--ink-500);font-weight:500} .tb-btn{height:32px;padding:0 14px;border-radius:16px;border:1px solid var(--line-soft);background:var(--card);font-size:12px;font-weight:600;color:var(--ink-700);cursor:pointer;font-family:inherit} .tb-btn.on{background:var(--b600);border-color:var(--b600);color:#fff} .tb-sep{width:1px;height:20px;background:var(--line-soft)} .tb-hint{font-size:12px;color:var(--ink-500)} #crumb{font-size:12px;font-weight:600;color:var(--b600)} .flowmap{position:sticky;top:57px;z-index:49;background:#FFF9F2;border-bottom:1px solid var(--line-soft);padding:12px 24px;font-size:11px;line-height:20px;color:var(--ink-700)} .flowmap b{font-size:11px;color:var(--ink-900)} .fnode{display:inline-block;background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:2px 8px;margin:2px 0;font-weight:600;font-size:11px;cursor:pointer} .fnode:hover{border-color:var(--b500);color:var(--b600)} .farrow{color:var(--ink-300);margin:0 3px} .fnote{color:var(--ink-500);margin:0 5px 0 2px} /\* ================= 画板容器 ================= \*/ #deck{padding:32px 40px 72px;display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start;width:max-content} #deck.mode-app{display:block;width:auto;padding:22px 20px 64px;background:#EFE4D7} .unit{display:flex;flex-direction:column;gap:12} .mode-app .unit{display:none} .mode-app .unit.active{display:block} .mode-app .tag{display:none} .tag{font-size:13px;font-weight:600;letter-spacing:.4px;color:#8A7361} .tag em{font-style:normal;font-weight:400;color:#A2907F} .screen{width:390px;height:844px;background:var(--paper-100);border-radius:44px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 24px 60px rgba(120,90,60,.18)} .screen.tall{height:1360px} .mode-app .screen{margin:0 auto;zoom:var(--zoom)} @keyframes inR{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:translateX(0)}} @keyframes inL{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:translateX(0)}} @keyframes inS{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}} .mode-app .unit.active\[data-anim="fwd"\] .screen{animation:inR .26s cubic-bezier(.32,.72,0,1)} .mode-app .unit.active\[data-anim="back"\] .screen{animation:inL .26s cubic-bezier(.32,.72,0,1)} .mode-app .unit.active\[data-anim="swap"\] .screen{animation:inS .2s cubic-bezier(.32,.72,0,1)} #deck.mode-app.hot \[data-go\],#deck.mode-app.hot \[data-back\],#deck.mode-app.hot \[data-tab\],#deck.mode-app.hot \[data-swap\],#deck.mode-app.hot \[data-key="done"\]{outline:1.5px dashed rgba(242,112,62,.55);outline-offset:-2px;border-radius:10px} \[data-go\],\[data-back\],\[data-tab\],\[data-swap\],\[data-toast\]{cursor:pointer} .body{flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column} .screen>\*{flex-shrink:0} .body>\*{flex-shrink:0} .screen>.body{flex-shrink:1} .bcol{overflow:visible} .donut-c{z-index:2} .pad{padding-left:20px;padding-right:20px} /\* ================= 状态栏 ================= \*/ .statusbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:12px 26px 0 34px;flex-shrink:0} .sb-time{font-size:15px;font-weight:600;letter-spacing:-.2px} .sb-icons{display:flex;align-items:center;gap:5px} /\* ================= 文字 ================= \*/ .h1{font-size:26px;font-weight:700;letter-spacing:-.3px} .h2{font-size:17px;font-weight:600} .sub{font-size:13px;font-weight:500;color:var(--ink-700)} .cap{font-size:11px;font-weight:500;color:var(--ink-500);letter-spacing:.2px} .num{font-family:ui-rounded,"SF Pro Rounded",-apple-system,"DIN Alternate",sans-serif;font-variant-numeric:tabular-nums} .display{font-size:40px;font-weight:700;letter-spacing:-1px;line-height:44px} .d32{font-size:32px;font-weight:700;letter-spacing:-.8px;line-height:38px} .cur{font-size:13px;font-weight:600;letter-spacing:0;position:relative;top:-14px;margin-right:2px} /\* ================= 导航 ================= \*/ .navbar{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 12px;flex-shrink:0} .navbar.col{flex-direction:column;align-items:stretch;gap:10;padding-bottom:14px} .iconbtn{width:32px;height:32px;border-radius:16px;background:var(--card);box-shadow:var(--el1);display:flex;align-items:center;justify-content:center} .pill{height:28px;padding:0 12px;border-radius:14px;background:var(--card);box-shadow:var(--el1);display:flex;align-items:center;gap:6;font-size:13px;font-weight:600} .avatar{width:32px;height:32px;border-radius:16px;background:linear-gradient(135deg,#FFC15E,#FF8A5C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600} .link{font-size:15px;color:var(--ink-500)} /\* ================= 卡片 ================= \*/ .card{background:var(--card);border-radius:24px;padding:16px;box-shadow:var(--el1);margin:0 20px 12px} .card.flush{margin-bottom:0} .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:0 20px 10px} .hero{margin:0 20px 12px;border-radius:24px;padding:20px;box-shadow:var(--el2);background-image:radial-gradient(rgba(214,160,120,.14) 1px,transparent 1.4px),linear-gradient(135deg,#FFFFFF 0%,#FFF6EC 55%,#FFE6D8 100%);background-size:20px 20px,100% 100%;position:relative} .tape{position:absolute;top:-6px;right:22px;width:56px;height:16px;border-radius:4px;background:rgba(255,198,92,.85);transform:rotate(-6deg);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#8A6A2A;letter-spacing:.5px} .hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px} .hero-2col{display:flex;margin-top:14px} .mini{flex:1} .mini .cap{margin-bottom:2px} .mini .v{font-size:16px;font-weight:600} .vsep{width:1px;background:var(--line-dash)} .dash{border-top:1px dashed var(--line-dash)} /\* ================= 进度条 ================= \*/ .bar{height:8px;border-radius:999px;background:var(--paper-200);overflow:hidden} .bar>i{display:block;height:8px;border-radius:999px;background:linear-gradient(90deg,#FFBE9E,#FF8A5C)} .bar.danger>i{background:linear-gradient(90deg,#F08172,#E24A3F)} .bar.ok>i{background:linear-gradient(90deg,#A8DCC0,#7FC29B)} .bar.sm{height:6px} .bar-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px} /\* ================= chip / 分类 ================= \*/ .chips{display:flex;gap:8;overflow:hidden;padding:0 20px;margin-bottom:12px} .chip{flex-shrink:0;height:40px;padding:0 14px;border-radius:20px;background:var(--card);border:1px solid var(--line-soft);display:flex;align-items:center;gap:6;font-size:13px;font-weight:500;color:var(--ink-900)} .chip.sm{height:32px;font-size:12px;padding:0 12px;border-radius:16px;color:var(--ink-700);background:var(--paper-50)} .tile{border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0} .tile.t52{width:52px;height:52px;border-radius:18px} .tile.t40{width:40px;height:40px;border-radius:14px} .tile.t36{width:36px;height:36px;border-radius:12px} /\* ================= 流水 ================= \*/ .day-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px dashed var(--line-dash);margin-bottom:4px} .row{display:flex;align-items:center;gap:10;height:64px} .row.compact{height:56px} .row .meta{flex:1;min-width:0} .row .name{font-size:15px;font-weight:500;line-height:20px} .row .note{font-size:11px;color:var(--ink-500);line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .row .amt{font-size:16px;font-weight:600;letter-spacing:-.2px} .amt.in{color:#4E9E75} @keyframes flash{0%{background:#FFE6D8}100%{background:transparent}} .row.flash{animation:flash 1.4s ease-out;border-radius:12px} /\* ================= Tab Bar ================= \*/ .tabbar{margin-top:auto;height:84px;flex-shrink:0;background:rgba(255,252,247,.94);border-top:1px solid var(--line-soft);display:flex;flex-direction:column} .tab-row{height:50px;display:flex;align-items:flex-start;padding:0 6px} .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3;padding-top:5px;font-size:11px;font-weight:500;color:var(--ink-500)} .tab.on{color:var(--b600)} .fabslot{flex:1;display:flex;justify-content:center} .fab{width:56px;height:56px;border-radius:28px;margin-top:-14px;background:radial-gradient(circle at 32% 26%,#FFBE9E,#F2703E);box-shadow:var(--el2);display:flex;align-items:center;justify-content:center} .homebar{height:34px;display:flex;align-items:center;justify-content:center} .homebar i{width:134px;height:5px;border-radius:3px;background:rgba(58,46,39,.8)} /\* ================= 分段控件 ================= \*/ .seg{height:36px;border-radius:18px;background:var(--paper-200);padding:3px;display:flex;gap:2} .seg>div{flex:1;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--ink-500)} .seg>div.on{background:var(--card);color:var(--ink-900);box-shadow:0 1px 4px rgba(214,160,120,.25)} .seg>div.on.tinted{color:var(--b600)} /\* ================= 记账页 ================= \*/ .amount-card{margin:0 20px 12px;background:var(--card);border-radius:24px;padding:16px 20px;box-shadow:var(--el1);display:flex;align-items:center;justify-content:space-between} .big{font-size:32px;font-weight:700;letter-spacing:-.8px;display:flex;align-items:baseline} .caret{width:2px;height:30px;background:var(--b500);border-radius:1px;margin-left:3px;position:relative;top:3px} .catgrid{display:flex;flex-wrap:wrap;padding:0 12px;margin-bottom:4px} .cat{width:25%;display:flex;flex-direction:column;align-items:center;gap:6;padding:6px 0} .cat .tile{background:var(--paper-200)} .cat.sel .tile{border:2px solid var(--b500)} .cat span{font-size:11px;color:var(--ink-700);font-weight:500} .keypad{flex-shrink:0;background:var(--paper-50);border-top:1px solid var(--line-soft);padding:10px 12px 0} .kp-row{display:flex;gap:8;margin-bottom:8} .key{flex:1;height:52px;border-radius:18px;background:var(--card);box-shadow:0 2px 6px rgba(214,160,120,.16);display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:600} .key.fn{font-size:14px;font-weight:500;color:var(--ink-700);background:var(--paper-200);box-shadow:none} .key.go{background:var(--b600);color:#fff;font-size:16px;font-weight:600;box-shadow:0 4px 10px rgba(242,112,62,.3)} .key:active{transform:scale(.96)} /\* ================= 图表 ================= \*/ .donut-wrap{display:flex;align-items:center;gap:14} .donut-box{width:150px;height:150px;position:relative;flex-shrink:0} .donut-c{position:absolute;top:44px;left:0;width:150px;text-align:center} .legend{flex:1;min-width:0} .lg{display:flex;align-items:center;gap:6;height:24px} .lg i{width:8px;height:8px;border-radius:4px;flex-shrink:0} .lg .n{flex:1;font-size:12px;color:var(--ink-700);white-space:nowrap;overflow:hidden} .lg .p{font-size:11px;font-weight:600} .bars{display:flex;align-items:flex-end;justify-content:space-between;height:96px;padding:0 4px} .bcol{width:20px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4} .bcol i{width:20px;border-radius:10px 10px 4px 4px;background:var(--b100)} .bcol i.void{background:transparent;border-top:2px dashed var(--line-dash);border-radius:0;height:4px} .bcol.now i{background:linear-gradient(180deg,#FFBE9E,#FF8A5C)} .bcol em{font-style:normal;font-size:9px;color:var(--ink-500);font-family:ui-rounded,sans-serif} .bars.y12{height:88px} .bars.y12 .bcol{width:18px} .bars.y12 .bcol i{width:18px;border-radius:9px 9px 3px 3px} .blab{display:flex;justify-content:space-between;padding:0 4px;margin-top:6px} .blab span{width:20px;text-align:center;font-size:10px;color:var(--ink-500)} .blab.y12 span{width:18px;font-size:9px} .insight{background:#FFF3EC;border-radius:12px;padding:10px 12px;margin-top:12px;display:flex;gap:8;align-items:center} .insight p{font-size:12px;color:#8A5236;line-height:17px} /\* ================= 排行 / 预算行 ================= \*/ .rank{display:flex;align-items:center;gap:10;height:52px} .rank .rk{width:20px;flex-shrink:0;text-align:center;font-size:11px;font-weight:600;color:var(--ink-500)} .sticker{width:20px;height:20px;border-radius:10px;background:var(--honey);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#8A6A2A;flex-shrink:0} .bud-row{display:flex;align-items:center;gap:10;padding:12px 0;border-bottom:1px dashed var(--line-dash)} .bud-row:last-child{border-bottom:none;padding-bottom:2px} .bud-row .bn{font-size:14px;font-weight:500} .bud-row .bv{font-size:11px;color:var(--ink-500);margin-top:5px} .alert{margin:0 20px 12px;background:rgba(226,74,63,.09);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10} .alert .t{font-size:13px;font-weight:600;color:var(--danger)} .alert .d{font-size:11px;color:#B5726A;margin-top:2px;line-height:16px} .tri{height:22px;padding:0 9px;border-radius:11px;font-size:11px;font-weight:600;display:flex;align-items:center;white-space:nowrap} .tri.up{background:rgba(226,74,63,.10);color:#E24A3F} .tri.down{background:rgba(127,194,155,.16);color:#4E9E75} .tri.plain{background:var(--paper-200);color:var(--ink-700)} /\* ================= 转账 ================= \*/ .acct-card{margin:0 20px 12px;background:var(--card);border-radius:24px;padding:14px 16px;box-shadow:var(--el1);display:flex;align-items:center;gap:12} .acct{flex:1;display:flex;align-items:center;gap:9} .acct .an{font-size:13px;font-weight:600} .acct .ab{font-size:11px;color:var(--ink-500);margin-top:2px} .swap-ic{width:30px;height:30px;border-radius:15px;background:#FFF3EC;display:flex;align-items:center;justify-content:center;flex-shrink:0} .budget-tip{margin:0 20px 12px;font-size:11px;color:var(--ink-500);line-height:16px;display:flex;gap:6;align-items:center} /\* ================= 列表（我的） ================= \*/ .list{background:var(--card);border-radius:24px;margin:0 20px 12px;box-shadow:var(--el1);padding:4px 16px} .li{display:flex;align-items:center;gap:10;height:52px;border-bottom:1px dashed var(--line-dash)} .list .li:last-child{border-bottom:none} .li .lt{flex:1;font-size:15px;font-weight:500} .li .lv{font-size:13px;color:var(--ink-500)} .switch{width:42px;height:26px;border-radius:13px;background:#7FC29B;position:relative;flex-shrink:0} .switch i{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:10px;background:#fff} .switch.off{background:var(--paper-200)} .switch.off i{left:3px;right:auto} /\* ================= 浮层 / Toast ================= \*/ .veil{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(58,46,39,.42)} .dimbase{opacity:.45} .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:28px 28px 0 0;box-shadow:var(--el3);padding:10px 20px 26px} .grab{width:36px;height:4px;border-radius:2px;background:var(--line-dash);margin:0 auto 14px} .toast{position:absolute;left:36px;right:36px;bottom:104px;background:rgba(58,46,39,.94);border-radius:20px;padding:12px 14px;display:flex;align-items:center;gap:10;box-shadow:0 12px 28px rgba(58,46,39,.28)} .toast .tt{font-size:13px;font-weight:600;color:#FFF6EC} .toast .td{font-size:11px;color:#CBBCAC;margin-top:2px} .toast.hide{display:none} @keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}} .toast.show{animation:toastIn .24s cubic-bezier(.32,.72,0,1)} /\* ================= 规范板 ================= \*/ .spec{padding:0 20px} .spec h3{font-size:13px;font-weight:700;letter-spacing:.4px;color:var(--ink-700);margin:22px 0 10px} .sw{display:flex;flex-wrap:wrap;gap:8} .swatch{width:72px} .swatch i{display:block;height:44px;border-radius:12px;border:1px solid var(--line-soft)} .swatch p{font-size:10px;color:var(--ink-700);margin-top:4px;line-height:13px} .type-row{display:flex;align-items:baseline;gap:10;border-bottom:1px dashed var(--line-dash);padding:8px 0} .type-row .k{width:96px;font-size:10px;color:var(--ink-500);flex-shrink:0} .demo-flex{display:flex;gap:10;align-items:center;flex-wrap:wrap}
+
+小满记账 · 交互高保真原型
+==============
+
+v2.0 · iPhone 390×844 · 暖色治愈手账风
+
+交互原型（可点击） 全部画板（导出 Figma）
+
+显示可点区域 缩放 100% 回到首页
+
+当前：S1 首页账本
+
+交互流程图（点节点可直接跳屏；导出 Figma 前可删除本区块）
+
+**主循环 · 记一笔**  
+S1 首页账本→中央 FAB / 快捷分类 chipS2a 记支出↔S2b 记收入↔S2c 转账→完成Toast + 新条目高亮回 S1  
+  
+**看统计 · 分类统计**  
+S1→统计 Tab / 点 Hero 卡S3a 月↔S3b 周↔S3c 年→点环形图例 / 排行行 / 洞察卡S4a 分类明细·临近超支↔S4b 分类明细·已超支→返回栈S1  
+  
+**预算与账户**  
+S1→预算 Tab / Hero 预算行S5 预算总览→S4 分类预算明细  
+S1→我的 TabS6 我的   S1→点任意流水条目S7 条目详情浮层（编辑 / 删除）  
+  
+**手势约定**：前进 = 右推入 260ms；返回 = 左推出；分段控件（支出/收入/转账、周/月/年）= 横向淡切 200ms，不入返回栈；浮层 = 底部升起 + 点击遮罩关闭；数字键盘可真实输入金额。
+
+S0 · 设计规范板 _390 × 1360，导出后作为 Figma 的 Style Sheet 页_
+
+9:41
+
+设计规范
+
+v2.0
+
+### 纸感中性色 / PAPER & INK
+
+paper/50  
+#FFFCF7
+
+paper/100  
+#FFF6EC
+
+paper/200  
+#FBEFE2
+
+card  
+#FFFFFF
+
+ink/900  
+#3A2E27
+
+ink/700  
+#6B5B50
+
+ink/500  
+#A2907F
+
+line/dash  
+#E7D8C6
+
+### 品牌与语义色 / BRAND
+
+brand/50
+
+brand/100
+
+brand/300
+
+brand/500 主色
+
+brand/600  
+白字承载
+
+honey 结余
+
+matcha 收入
+
+danger 超支
+
+### 分类马卡龙 11 色 / CATEGORY（solid + tint）
+
+餐饮  
+#FFEEE3
+
+奶茶  
+#FFF4E0
+
+交通  
+#E5F3FC
+
+购物  
+#FDE9EF
+
+日用  
+#EBF6E5
+
+居住  
+#F0EAFC
+
+娱乐  
+#FCE9F7
+
+医疗  
+#E4F7F3
+
+学习  
+#E8EEFD
+
+人情  
+#FBEDD9
+
+其他  
+#F1EBE3
+
+### 字阶 / TYPE SCALE
+
+Display 40/44 · 700
+
+¥4,286.50
+
+Amount XL 32/38
+
+¥26.50
+
+H1 26/32 · 700
+
+账本
+
+H2 17/24 · 600
+
+支出结构
+
+Item 16/22 · 600
+
+−32.00
+
+Body 15/22 · 400
+
+美团外卖 · 麻辣香锅
+
+Sub 13/18 · 500
+
+本月还能花
+
+Caption 11/14
+
+连续记账 21 天
+
+### 圆角与阴影 / RADIUS & ELEVATION
+
+pill 999
+
+card 24 / card-sm 16 / tile 18 · 阴影一律带棕橙底，禁纯黑纯灰
+
+### 组件矩阵 / COMPONENTS
+
+保存记账
+
+设为月度预算
+
+\+ 奶茶饮品
+
+餐饮 · 选中
+
+预算 71% · track 8px
+
+超支 +14% · danger
+
+已超预算
+
+达标
+
+剩 ¥128
+
+### 手账四件套 / 只允许出现在 Hero 卡
+
+本月
+
+1
+
+2
+
+S1 · 首页账本 _入口屏：FAB→记一笔｜统计 Tab→月统计｜预算 Tab→预算总览｜流水行→详情浮层_
+
+9:41
+
+账本
+
+2026年11月
+
+满
+
+本月
+
+本月支出已连续记账 21 天
+
+¥4,286.50
+
+收入
+
++12,000.00
+
+结余
+
++7,713.50
+
+预算 ¥6,000 已用 71% 本月还能花 ¥107 / 天
+
+随手记一笔管理
+
+餐饮
+
+奶茶
+
+地铁
+
+便利店
+
+收工资
+
+今天 · 11月14日 周五支出 ¥73.40
+
+餐饮
+
+08:12 · 全家便利店（天河北店）
+
+−26.50
+
+交通
+
+09:04 · 地铁3号线 体育西路→珠江新城
+
+−5.00
+
+奶茶饮品
+
+14:30 · 瑞幸 生椰拿铁（自提）
+
+−9.90
+
+餐饮
+
+12:20 · 美团外卖 麻辣香锅 · 满减后
+
+−32.00
+
+昨天 · 11月13日支出 ¥373.00
+
+日用品
+
+20:41 · 山姆会员店 周末采购
+
+−328.00
+
+娱乐
+
+19:30 · 英皇影城《好东西》
+
+−45.00
+
+已记入 餐饮 −¥26.50
+
+今天已记 5 笔 · 连续记账第 21 天
+
+账本
+
+统计
+
+预算
+
+我的
+
+S2a · 快速记账（支出） _入口：S1 中央 FAB / 快捷分类 chip｜顶部「取消」返回 S1_
+
+9:41
+
+取消 记一笔
+
+今天 11/14
+
+支出
+
+收入
+
+转账
+
+支出了
+
+¥26.50
+
+选择分类全部 11 类 ›
+
+餐饮
+
+奶茶饮品
+
+交通
+
+购物
+
+日用品
+
+居住水电
+
+娱乐
+
+医疗健康
+
+学习
+
+人情往来
+
+其他
+
+新增
+
+全家便利店
+
+午餐
+
+通勤
+
+\+ 备注
+
+1
+
+2
+
+3
+
+退格
+
+4
+
+5
+
+6
+
+.
+
+7
+
+8
+
+9
+
+今天
+
+清空
+
+0
+
+完成
+
+S2b · 快速记账（收入） _入口：S2a 分段「收入」横向切换｜分类语义与配色整体转绿金_
+
+9:41
+
+取消 记一笔
+
+今天 11/14
+
+支出
+
+收入
+
+转账
+
+收入了
+
+¥12,000.00
+
+收入来源全部 12 类 ›
+
+工资薪金
+
+奖金绩效
+
+兼职副业
+
+理财收益
+
+红包礼金
+
+报销退款
+
+公积金
+
+房租收入
+
+退货退款
+
+亲属资助
+
+中奖抽奖
+
+其他收入
+
+11月工资
+
+到账 · 招发薪日
+
+\+ 备注
+
+1
+
+2
+
+3
+
+退格
+
+4
+
+5
+
+6
+
+.
+
+7
+
+8
+
+9
+
+今天
+
+清空
+
+0
+
+完成
+
+S2c · 转账（账户互转） _入口：S2a/S2b 分段「转账」｜不参与收支与预算统计_
+
+9:41
+
+取消 转账
+
+今天 11/14
+
+支出
+
+收入
+
+转账
+
+转出金额
+
+¥2,000.00
+
+招商银行 储蓄卡
+
+尾号 6688 · 余额 ¥18,420.66
+
+零钱通
+
+余额 ¥9,318.40
+
+转账只调整两个账户余额，**不计入支出、不占用月度预算**。
+
+常用转出3 步内完成
+
+还信用卡 ¥3,240
+
+储蓄罐 ¥2,000
+
+房租 ¥2,800
+
+1
+
+2
+
+3
+
+退格
+
+4
+
+5
+
+6
+
+.
+
+7
+
+8
+
+9
+
+今天
+
+清空
+
+0
+
+完成
+
+S3a · 统计总览（月） _入口：S1 统计 Tab / 点 Hero 卡｜分段可横切周・年｜点分类行或图例进 S4_
+
+9:41
+
+统计
+
+2026年11月
+
+周
+
+月
+
+年
+
+支出结构
+
+本月支出
+
+¥4,286
+
+餐饮¥1,372 · 32%
+
+交通¥772 · 18%
+
+购物¥643 · 15%
+
+奶茶饮品¥514 · 12%
+
+日用品¥343 · 8%
+
+其余 3 类¥642.5 · 15%
+
+近 6 个月支出 日均 **¥306** · 月均 **¥4,271**
+
+_4,286_
+
+6月7月8月9月10月本月
+
+分类排行 点一行看该分类明细 ›
+
+1
+
+餐饮¥1,372 · 32%
+
+2
+
+交通¥772 · 18%
+
+3
+
+购物¥643 · 15%
+
+4
+
+奶茶饮品 超支¥514 · 12%
+
+账本
+
+统计
+
+预算
+
+我的
+
+S3b · 统计总览（周） _入口：S3a 分段「周」｜7 天柱状含未发生日占位_
+
+9:41
+
+统计
+
+11/10 – 11/16 · 第 4 周
+
+周
+
+月
+
+年
+
+本周支出
+
+¥832.40
+
+环比 −12%
+
+日均 ¥166
+
+周预算 ¥1,385 已用 60%还剩 ¥552.60
+
+7 天节奏 峰值出现在周四（聚餐）
+
+_102_
+
+_188_
+
+_96_
+
+_373_
+
+_73_
+
+_未过_
+
+_未过_
+
+一二三四五六日
+
+本周支出结构
+
+共 18 笔
+
+¥832
+
+餐饮40%
+
+交通20%
+
+日用品15%
+
+奶茶饮品14%
+
+娱乐11%
+
+本周外卖 **4** 次，比上周少 **2** 次；周四一顿聚餐占掉全周 **45%**。
+
+账本
+
+统计
+
+预算
+
+我的
+
+S3c · 统计总览（年） _入口：S3a/S3b 分段「年」｜12 月柱状 + 年度 Top 分类_
+
+9:41
+
+统计
+
+2026 年 · 已过 318 天
+
+周
+
+月
+
+年
+
+年度支出（1–11 月）
+
+¥45,866.50
+
+同比 +6.2%
+
+月均 ¥4,170
+
+累计笔数
+
+1,284
+
+年度收入
+
++131,400
+
+最贵一笔
+
+¥3,280
+
+12 个月支出 8 月最高 ¥5,180 · 9 月最低 ¥3,640
+
+123456789101112
+
+年度 Top 5 分类 点一行看该分类明细 ›
+
+1
+
+餐饮¥14,280 · 31%
+
+2
+
+交通¥8,260 · 18%
+
+3
+
+购物¥6,880 · 15%
+
+4
+
+居住水电¥5,400 · 12%
+
+5
+
+奶茶饮品 涨最多¥4,120 · 9%
+
+账本
+
+统计
+
+预算
+
+我的
+
+S4a · 分类明细 + 预算（餐饮 · 临近超支） _入口：S3 图例/排行行、S5 预算行｜顶栏返回上一屏_
+
+9:41
+
+餐饮2026年11月
+
+本月已支出
+
+¥1,372.00
+
+环比 +16%
+
+笔数
+
+42 笔
+
+笔均
+
+¥32.7
+
+占总支出
+
+32%
+
+分类预算 每月 1 日重置 ›
+
+¥1,372 / ¥1,500剩 ¥128
+
+已花
+
+¥1,372
+
+预算
+
+¥1,500
+
+还能花 / 天
+
+¥8
+
+只剩 3 顿外卖的额度
+
+同类「奶茶饮品」已超预算 14%，点这里去看看 ›
+
+11月14日 周五¥58.50
+
+早餐 · 全家便利店
+
+08:12 · 饭团 + 咖啡 · 微信
+
+−26.50
+
+午餐 · 美团外卖
+
+12:20 · 麻辣香锅，满减省 ¥6
+
+−32.00
+
+查看全部 42 笔 ›
+
+账本
+
+统计
+
+预算
+
+我的
+
+S4b · 分类明细 + 预算（奶茶饮品 · 已超支） _入口：S3 排行「超支」行、S4a 告警条、S5 预算行｜超支态的唯一视觉样板_
+
+9:41
+
+奶茶饮品2026年11月
+
+本月已支出
+
+¥514.00
+
+环比 +10%
+
+笔数
+
+12 杯
+
+杯均
+
+¥42.8
+
+占总支出
+
+12%
+
+分类预算 超支 +14%
+
+¥514 / ¥450已超 ¥64
+
+已花
+
+¥514
+
+预算
+
+¥450
+
+还能花 / 天
+
+¥0
+
+已连续 3 个月超这项预算
+
+9 月 ¥486 · 10 月 ¥468 · 11 月 ¥514。把下月预算调到 ¥600，还是给奶茶设个「每周 2 杯」目标？
+
+11月明细 · 12 杯¥514.00
+
+瑞幸咖啡
+
+14:30 · 生椰拿铁（自提）· 微信
+
+−9.90
+
+喜茶
+
+11月12日 · 多肉葡萄 ×2，和同事拼单
+
+−29.00
+
+查看全部 12 杯 ›
+
+账本
+
+统计
+
+预算
+
+我的
+
+S5 · 预算总览 _入口：底部「预算」Tab / S1 Hero 预算行｜点任意分类行进 S4_
+
+9:41
+
+预算
+
+2026年11月
+
+本月还剩
+
+¥1,713.50
+
+剩 16 天 · 日均可用
+
+¥107
+
+已花 ¥4,286.50 / ¥6,00071%
+
+总预算
+
+¥6,000
+
+上月实际
+
+¥4,110
+
+剩余天数
+
+16 天
+
+分类预算 \+ 新增
+
+餐饮¥1,372 / 1,500
+
+剩 ¥128 · 日均 ¥8
+
+奶茶饮品 超支¥514 / 450
+
+已超 ¥64 · 连续 3 个月超
+
+交通¥772 / 800
+
+剩 ¥28 · 日均 ¥2
+
+购物¥643 / 800
+
+剩 ¥157 · 进度正常
+
+日用品¥343 / 400
+
+剩 ¥57 · 注意别再囤货
+
+娱乐¥214 / 300
+
+剩 ¥86 · 进度正常
+
+账本
+
+统计
+
+预算
+
+我的
+
+S6 · 我的 _入口：底部「我的」Tab / S1 头像｜打卡与设置_
+
+9:41
+
+我的
+
+满
+
+小满
+
+记账第 218 天 · 已记 1,284 笔
+
+编辑 ›
+
+本月支出
+
+¥4,286
+
+本月结余
+
++7,713
+
+连续记账
+
+21 天
+
+本月打卡再记 9 天解锁「满月」贴纸
+
+1
+
+7
+
+14
+
+21
+
+30
+
+今天 ✓
+
+账本与分类管理1 个账本 · 11 类 ›
+
+每日记账提醒20:00
+
+主题皮肤奶油手账 · 亮色 ›
+
+Face ID 锁
+
+导出账单（CSV / Excel）›
+
+关于与隐私v2.0 ›
+
+账本
+
+统计
+
+预算
+
+我的
+
+S7 · 流水详情浮层 _入口：任意流水条目｜点遮罩或「关闭」返回 S1；编辑复用 S2_
+
+9:41
+
+账本
+
+满
+
+本月支出已连续记账 21 天
+
+¥4,286.50
+
+今天 · 11月14日 周五支出 ¥73.40
+
+餐饮
+
+08:12 · 全家便利店
+
+−26.50
+
+交通
+
+09:04 · 地铁3号线
+
+−5.00
+
+账单详情 关闭
+
+餐饮 · 早餐
+
+−¥26.50
+
+时间2026-11-14 08:12
+
+账户微信零钱
+
+商户全家便利店（天河北店）
+
+标签#早餐 #工作日
+
+编辑
+
+删除
+
+(function(){ var deck=document.getElementById('deck'); var crumb=document.getElementById('crumb'); var units=Array.prototype.slice.call(deck.querySelectorAll('.unit')); var names={ 's0':'S0 设计规范板','s1':'S1 首页账本', 's2-expense':'S2a 快速记账 · 支出','s2-income':'S2b 快速记账 · 收入','s2-transfer':'S2c 转账', 's3-month':'S3a 统计 · 月','s3-week':'S3b 统计 · 周','s3-year':'S3c 统计 · 年', 's4-food':'S4a 分类明细 · 餐饮（临近超支）','s4-milk':'S4b 分类明细 · 奶茶（已超支）', 's5-budget':'S5 预算总览','s6-mine':'S6 我的','s7-detail':'S7 流水详情浮层' }; var roots=\['s1','s3-month','s5-budget','s6-mine'\]; var stack=\['s1'\]; function find(id){for(var i=0;i<units.length;i++){if(units\[i\].getAttribute('data-screen')===id)return units\[i\];}return null;} function show(id,anim){ var el=find(id); if(!el)return; var cur=deck.querySelector('.unit.active'); if(cur)cur.classList.remove('active'); el.setAttribute('data-anim',anim||'fwd'); el.classList.add('active'); if(crumb)crumb.textContent=names\[id\]||id; if(id!=='s1')hideToast(); } function go(id){ if(id===current())return; stack.push(id); show(id,'fwd'); } function swap(id){ stack\[stack.length-1\]=id; show(id,'swap'); } function back(){ if(stack.length>1){stack.pop();show(stack\[stack.length-1\],'back');} else {stack=\['s1'\];show('s1','back');} } function tab(id){ stack=\[id\]; show(id,'fwd'); } function current(){ return stack\[stack.length-1\]; } /\* Toast + 新条目高亮 \*/ var toast=document.getElementById('toast'); var toastTimer=null; function hideToast(){ if(toast){toast.classList.add('hide');toast.classList.remove('show');} } function saved(){ stack=\['s1'\]; show('s1','back'); if(!toast)return; toast.classList.remove('hide'); toast.classList.add('show'); var r=document.querySelector('\[data-screen="s1"\] .row'); if(r){r.classList.remove('flash'); void r.offsetWidth; r.classList.add('flash');} clearTimeout(toastTimer); toastTimer=setTimeout(hideToast,2400); } /\* 金额输入 \*/ function fmt(s){ if(s===''||s===null)return '0'; var p=s.split('.'); var i=p\[0\]||'0'; i=i.replace(/^0+(?=\\d)/,'').replace(/\\B(?=(\\d{3})+(?!\\d))/g,','); return p.length>1 ? i+'.'+p\[1\].slice(0,2) : i; } function type(el,ch){ var v=el.textContent.replace(/,/g,''); if(ch==='del'){ var t=v.slice(0,-1); el.textContent=fmt(t); } else if(ch==='clear'){ el.textContent='0'; } else if(ch==='.'){ if(v.indexOf('.')<0)el.textContent=v+'.'; } else { if(v.replace('.','').length>=9)return; el.textContent=fmt(v+ch); } } /\* 事件委托 \*/ document.addEventListener('click',function(e){ var t=e.target; while(t&&t!==document.body){ if(t.hasAttribute&&t.hasAttribute('data-jump')){ tab(t.getAttribute('data-jump')); if(deck.classList.contains('mode-board'))setMode('app'); window.scrollTo(0,0); return; } if(t.hasAttribute&&t.hasAttribute('data-back')){ back(); return; } if(t.hasAttribute&&t.hasAttribute('data-swap')){ swap(t.getAttribute('data-swap')); return; } if(t.hasAttribute&&t.hasAttribute('data-tab')){ tab(t.getAttribute('data-tab')); return; } if(t.hasAttribute&&t.hasAttribute('data-toast')){ saved(); return; } if(t.hasAttribute&&t.hasAttribute('data-go')){ go(t.getAttribute('data-go')); return; } if(t.hasAttribute&&t.hasAttribute('data-key')){ var k=t.getAttribute('data-key'); var screen=t.closest?t.closest('.screen'):null; var val=screen?screen.querySelector('\[data-amount\]'):null; if(k==='done'){ saved(); return; } if(k==='today'){ return; } if(val)type(val,k); return; } t=t.parentNode; } }); /\* 模式 / 缩放 / 可点区域 \*/ var btnApp=document.getElementById('btnApp'),btnBoard=document.getElementById('btnBoard'), btnHot=document.getElementById('btnHot'),btnZoom=document.getElementById('btnZoom'), btnHome=document.getElementById('btnHome'); function setMode(m){ if(m==='board'){deck.classList.remove('mode-app');deck.classList.add('mode-board');btnBoard.classList.add('on');btnApp.classList.remove('on');btnHot.style.opacity=.4;} else{deck.classList.add('mode-app');deck.classList.remove('mode-board');btnApp.classList.add('on');btnBoard.classList.remove('on');btnHot.style.opacity=1; var cur=deck.querySelector('.unit.active'); if(!cur)show('s1','fwd'); else {crumb.textContent=names\[cur.getAttribute('data-screen')\]||'';} } } btnApp.onclick=function(){setMode('app');}; btnBoard.onclick=function(){setMode('board');}; btnHot.onclick=function(){deck.classList.toggle('hot');btnHot.classList.toggle('on');}; var zs=\[1,0.85,0.7\],zi=0; btnZoom.onclick=function(){zi=(zi+1)%zs.length;deck.style.setProperty('--zoom',zs\[zi\]);btnZoom.textContent='缩放 '+Math.round(zs\[zi\]\*100)+'%';}; btnHome.onclick=function(){stack=\['s1'\];show('s1','back');}; show('s1','fwd'); })();
